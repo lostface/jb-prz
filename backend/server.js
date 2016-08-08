@@ -1,7 +1,7 @@
 var
   express = require('express'),
   app = express(),
-  prezisRoutes = require('./app/prezis.routes.js');
+  prezisRoutes = require('./app/prezis.routes');
 
 app.use('/prezis', prezisRoutes);
 
