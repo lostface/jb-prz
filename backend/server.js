@@ -1,9 +1,8 @@
 var
   express = require('express'),
-  app = express();
+  app = express(),
+  prezisRoutes = require('./app/prezis.routes.js');
 
-app.get('/', function(req, res) {
-  res.send('Hello There!');
-});
+app.use('/prezis', prezisRoutes);
 
 app.listen(3000);
