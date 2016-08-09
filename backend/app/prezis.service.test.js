@@ -248,7 +248,7 @@ function getDefaultData() {
   return [
     {
       id: '2b',
-      title: 'Incididunt amet ad nostrud',
+      title: 'incididunt amet ad nostrud',
       createdAt: 'March 6, 2014',
     },
     {
@@ -263,7 +263,7 @@ function getDefaultData() {
     },
     {
       id: '3c',
-      title: 'Anim id enim duis',
+      title: 'anim id enim duis',
       createdAt: 'April 11, 2015',
     },
   ];
