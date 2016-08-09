@@ -1,8 +1,8 @@
-var
+const
   express = require('express'),
   app = express(),
-  prezisRoutes = require('./app/prezis.routes');
+  prezisApp = require('./app/prezis.app');
 
-app.use('/prezis', prezisRoutes);
+app.use('/prezis', prezisApp);
 
 app.listen(3000);
