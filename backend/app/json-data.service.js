@@ -18,7 +18,7 @@ function init(file) {
  */
 function getData(cb) {
   if (this.data) {
-    return process.nextTick(() => cb(null, this.data));
+    return process.nextTick(() => cb(null, this.data.slice()));
   }
 
   jsonfile.readFile(this.file, jsonReadCb.bind(this));
@@ -27,6 +27,6 @@ function getData(cb) {
     if (err) { return cb(err); }
 
     this.data = data;
-    return cb(null, this.data);
+    return cb(null, this.data.slice());
   }
 }
