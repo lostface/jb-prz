@@ -2,9 +2,9 @@
 
 const
   React = require('react'),
-  Prezi = require('./prezi'),
+  { Grid, Cell } = require('react-mdl'),
   SortBy = require('./sort-by'),
-  SortAscending = require('./sort-ascending');
+  Prezi = require('./prezi');
 
 module.exports = PreziList;
 
@@ -17,13 +17,21 @@ function PreziList(props) {
     onSortAscendingChange
   } = props;
 
-  return (
-    <div className="prezi-list-container">
-      <SortBy sortBy={sortBy} onChange={onSortByChange} />
-      <SortAscending ascending={sortAscending} onChange={onSortAscendingChange} />
+  const preziNodes =
+    prezis.map(prezi => {
+      return (
+        <Cell col={4} key={prezi.id}>
+          <Prezi {...prezi} />
+        </Cell>
+      );
+    })
 
-      <div className="prezi-list">
-        {prezis.map(prezi => <Prezi key={prezi.id} {...prezi}   />)}
+  return (
+    <div>
+      <SortBy {...{ sortBy, sortAscending, onSortByChange, onSortAscendingChange }} />
+
+      <div style={{width: '80%', margin: 'auto'}}>
+        <Grid>{preziNodes}</Grid>
       </div>
     </div>
   );

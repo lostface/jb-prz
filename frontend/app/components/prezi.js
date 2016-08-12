@@ -1,12 +1,13 @@
 'use strict';
 
-const  React = require('react');
+const
+  React = require('react'),
+  { Card, CardTitle, CardText } = require('react-mdl');
 
 module.exports = Prezi;
 
 function Prezi(props) {
   const {
-    id,
     title,
     thumbnail,
     creator,
@@ -14,8 +15,19 @@ function Prezi(props) {
   } = props;
 
   return (
-    <div className="prezi">
-      {title} by {creator.name} at {createdAt}
-    </div>
+    <Card shadow={0} style={{width: '400px', height: '400px', margin: 'auto'}}>
+      <CardTitle
+          expand
+          style={{
+            color: '#fff',
+            height: '400px',
+            background: `url(${thumbnail}) bottom right 15% no-repeat #46B6AC`}
+          }>
+        {title}
+      </CardTitle>
+      <CardText>
+        {createdAt} by {creator.name}
+      </CardText>
+    </Card>
   );
 }

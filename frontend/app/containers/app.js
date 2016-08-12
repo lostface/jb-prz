@@ -3,15 +3,8 @@
 const
   React = require('react'),
   { connect } = require('react-redux'),
-
-  {
-    fetchPrezis,
-    setSearchText,
-    setSortBy,
-    setSortAscending
-  } = require('../actions'),
-
-  SearchBar = require('../components/search-bar'),
+  { fetchPrezis, setSearchText, setSortBy, setSortAscending } = require('../actions'),
+  { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
   PreziList = require('../components/prezi-list');
 
 const App = React.createClass({
@@ -68,10 +61,25 @@ const App = React.createClass({
     } = this.props;
 
     return (
-      <div className="main">
-        <SearchBar searchText={searchText} onChange={onSearchTextChange} />
-        <PreziList {...{ prezis, sortBy, sortAscending, onSortByChange, onSortAscendingChange }} />
-      </div>
+      <Layout fixedHeader>
+        <Header title="PREZiS">
+          <Textfield
+            value={searchText}
+            onChange={e => onSearchTextChange(e.target.value)}
+            label="Search"
+            expandable
+            expandableIcon="search"
+          />
+        </Header>
+        <Drawer title="Menu">
+          <Navigation>
+            <p>About</p>
+          </Navigation>
+        </Drawer>
+        <Content>
+          <PreziList {...{ prezis, sortBy, sortAscending, onSortByChange, onSortAscendingChange }} />
+        </Content>
+      </Layout>
     );
   },
 })
