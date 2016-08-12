@@ -61,6 +61,30 @@ test('findAll callback calling when search specified', function(t) {
   }
 });
 
+test('findAll callback calling when search specified as case sensitive', function(t) {
+  const
+    underTest = Object.create(PrezisService),
+    options = { search: 'Nostrud' };
+
+  underTest.init(createDataService());
+  underTest.findAll(options, cb);
+
+  function cb(err, data) {
+    const
+      expected = getExpected(),
+      actual = data;
+
+    t.looseEqual(actual, expected, 'findAll() should treat search as case insensitive during filtering');
+
+    t.end();
+
+    function getExpected() {
+      const data = getDefaultData();
+      return [data[0], data[2]];
+    }
+  }
+});
+
 test('findAll callback calling when orderBy is createdAt', function(t) {
   const
     underTest = Object.create(PrezisService),
