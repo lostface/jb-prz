@@ -13,7 +13,7 @@ function findAll(req, res) {
     query = req.query,
     search = query.search,
     orderBy = query.orderBy,
-    descending = query.descending,
+    descending = query.descending == 'true',
     prezisService = req.app.locals.prezisService;
 
   prezisService.findAll({ search: search, orderBy: orderBy, descending: descending }, findAllCb);
