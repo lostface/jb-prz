@@ -2,15 +2,10 @@
 
 const
   React = require('react'),
-  ReactDOM = require('react-dom');
-
-class HelloComponent extends React.Component {
-  render() {
-    return <p>Hello Out There</p>;
-  }
-}
+  ReactDOM = require('react-dom'),
+  Root = require('./containers/root');
 
 ReactDOM.render(
-  <HelloComponent />,
+  <Root />,
   document.getElementById('container')
 );
