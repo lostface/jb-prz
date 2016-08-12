@@ -50,6 +50,7 @@ function findAll(options, cb) {
     cb(null, descending ? data.reverse() : data);
 
     function getSearchFilter(search) {
+      search = search ? search.trim().toLowerCase() : '';
       return search ? byTitle : constTrue;
 
       function byTitle(prezi) {
