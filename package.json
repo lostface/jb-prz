@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "test": "tape app/**/*.test*.js | tap-spec"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "jsonfile": "^2.3.1"
+  },
+  "devDependencies": {
+    "proxyquire": "^1.7.10",
+    "sinon": "^1.17.5",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0"
+  }
+}
