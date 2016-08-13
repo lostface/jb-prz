@@ -2,27 +2,39 @@
 
 const
   React = require('react'),
-  { connect } = require('react-redux'),
-  { fetchPrezis, setSearchText, setSortBy, setSortAscending } = require('../actions'),
   { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
   PreziList = require('../components/prezi-list');
 
-const App = React.createClass({
+module.exports = React.createClass({
+  getInitialState() {
+    return {
+      prezis: [],
+      searchText: '',
+      sortBy: '',
+      sortAscending: true,
+    };
+  },
+
+  getDefaultProps() {
+    return {};
+  },
+
   componentDidMount() {
     const {
-      dispatch,
       searchText,
       sortBy,
       sortAscending
-    } = this.props;
+    } = this.state;
 
-    dispatch(fetchPrezis({ searchText, sortBy, sortAscending }));
+    // TODO
+      console.warn('TODO fetchPrezis')
+    // fetchPrezis({ searchText, sortBy, sortAscending });
   },
 
   componentWillReceiveProps(nextProps) {
+    // TODO probably state will be needed instead, because props is empty for App :)
     const
       {
-        dispatch,
         searchText: newSearchText,
         sortBy: newSortBy,
         sortAscending: newSortAscending
@@ -41,12 +53,26 @@ const App = React.createClass({
         newSortBy != oldSortBy ||
         ((newSortAscending != oldSortAscending) && (newSortBy))) {
 
-      dispatch(fetchPrezis({
-        searchText: newSearchText,
-        sortBy: newSortBy,
-        sortAscending: newSortAscending,
-      }));
+      // TODO
+      console.warn('TODO fetchPrezis')
+      // fetchPrezis({
+      //   searchText: newSearchText,
+      //   sortBy: newSortBy,
+      //   sortAscending: newSortAscending,
+      // });
     }
+  },
+
+  handleSearchTextChange(searchText) {
+    this.setState({...this.state, searchText});
+  },
+
+  handleSortByChange(sortBy) {
+    this.setState({...this.state, sortBy});
+  },
+
+  handleSortAscendingChange(sortAscending) {
+    this.setState({...this.state, sortAscending});
   },
 
   render() {
@@ -55,17 +81,14 @@ const App = React.createClass({
       searchText,
       sortBy,
       sortAscending,
-      onSearchTextChange,
-      onSortByChange,
-      onSortAscendingChange
-    } = this.props;
+    } = this.state;
 
     return (
       <Layout fixedHeader>
         <Header title="PREZiS">
           <Textfield
             value={searchText}
-            onChange={e => onSearchTextChange(e.target.value)}
+            onChange={e => this.handleSearchTextChange(e.target.value)}
             label="Search"
             expandable
             expandableIcon="search"
@@ -77,29 +100,16 @@ const App = React.createClass({
           </Navigation>
         </Drawer>
         <Content>
-          <PreziList {...{ prezis, sortBy, sortAscending, onSortByChange, onSortAscendingChange }} />
+          <PreziList {...
+            {
+              prezis,
+              sortBy,
+              sortAscending,
+              onSortByChange: this.handleSortByChange,
+              onSortAscendingChange: this.handleSortAscendingChange
+            }} />
         </Content>
       </Layout>
     );
   },
-})
-
-module.exports = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
-
-// TODO identity func can be used instead as well
-function mapStateToProps(state) {
-  return state;
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  // TODO compose can be used here
-  return {
-    dispatch: dispatch,
-    onSearchTextChange: searchText => dispatch(setSearchText(searchText)),
-    onSortByChange: sortBy => dispatch(setSortBy(sortBy)),
-    onSortAscendingChange:  sortAscending => dispatch(setSortAscending(sortAscending)),
-  };
-}
+});

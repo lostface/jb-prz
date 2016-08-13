@@ -48,3 +48,10 @@ function SortBy(props) {
     </div>
   );
 }
+
+SortBy.defaultProps = {
+  sortBy: '',
+  sortAscending: true,
+  onSortByChange: () => {},
+  onSortAscendingChange: () => {},
+};

@@ -36,3 +36,9 @@ function PreziList(props) {
     </div>
   );
 }
+
+PreziList.defaultProps = {
+  prezis: [],
+  sortBy: '',
+  sortAscending: true,
+};

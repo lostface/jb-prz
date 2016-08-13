@@ -31,3 +31,11 @@ function Prezi(props) {
     </Card>
   );
 }
+
+Prezi.defaultProps = {
+  id: '',
+  title: '',
+  thumbnail: '',
+  creator: { name: '', profileUrl: '' },
+  createdAt: '',
+};
