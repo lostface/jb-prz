@@ -2,6 +2,7 @@
 
 const
   React = require('react'),
+  fetch = require('isomorphic-fetch'),
   { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
   PreziList = require('../components/prezi-list');
 
@@ -26,25 +27,22 @@ module.exports = React.createClass({
       sortAscending
     } = this.state;
 
-    // TODO
-      console.warn('TODO fetchPrezis')
-    // fetchPrezis({ searchText, sortBy, sortAscending });
+    this.fetchPrezis({ searchText, sortBy, sortAscending });
   },
 
-  componentWillReceiveProps(nextProps) {
-    // TODO probably state will be needed instead, because props is empty for App :)
+  componentWillUpdate(nextProps, nextState) {
     const
       {
         searchText: newSearchText,
         sortBy: newSortBy,
         sortAscending: newSortAscending
-      } = nextProps,
+      } = nextState,
 
       {
         searchText: oldSearchText,
         sortBy: oldSortBy,
         sortAscending: oldSortAscending
-      } = this.props;
+      } = this.state;
 
     // TODO extract as a func
     // TODO debounce can be applied here on dispatch call
@@ -53,14 +51,26 @@ module.exports = React.createClass({
         newSortBy != oldSortBy ||
         ((newSortAscending != oldSortAscending) && (newSortBy))) {
 
-      // TODO
-      console.warn('TODO fetchPrezis')
-      // fetchPrezis({
-      //   searchText: newSearchText,
-      //   sortBy: newSortBy,
-      //   sortAscending: newSortAscending,
-      // });
+      this.fetchPrezis({
+        searchText: newSearchText,
+        sortBy: newSortBy,
+        sortAscending: newSortAscending,
+      });
     }
+  },
+
+  fetchPrezis(options) {
+    const { searchText, sortBy, sortAscending } = options;
+
+    // TODO empty param exclusion ?
+    // TODO from config
+    return fetch(
+        `https://quiet-island-87638.herokuapp.com/prezis?search=${searchText}&orderBy=${sortBy}&descending=${!sortAscending}`,
+        // `http://localhost:3000/prezis?search=${searchText}&orderBy=${sortBy}&descending=${!sortAscending}`,
+        { mode: 'cors' }
+      )
+      .then(response => response.json())
+      .then(data => this.setState({...this.state, prezis: data}));
   },
 
   handleSearchTextChange(searchText) {
