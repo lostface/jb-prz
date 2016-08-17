@@ -41,8 +41,8 @@ function Main(props) {
             prezis,
             sortBy,
             sortAscending,
-            onSortByChange: onSortByChange,
-            onSortAscendingChange: onSortAscendingChange,
+            onSortByChange,
+            onSortAscendingChange,
           }} />
       </Content>
     </Layout>
@@ -53,7 +53,7 @@ Main.defaultProps = {
   prezis: [],
   searchText: '',
   sortBy: '',
-  sortAscending: 'true',
+  sortAscending: true,
   // TODO noOp func instead
   onSearchTextChange: () => {},
   onSortByChange: () => {},
