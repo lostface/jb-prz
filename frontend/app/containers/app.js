@@ -3,8 +3,7 @@
 const
   React = require('react'),
   fetch = require('isomorphic-fetch'),
-  { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
-  PreziList = require('../components/prezi-list');
+  Main = require('../components/main');
 
 module.exports = React.createClass({
   getInitialState() {
@@ -14,10 +13,6 @@ module.exports = React.createClass({
       sortBy: '',
       sortAscending: true,
     };
-  },
-
-  getDefaultProps() {
-    return {};
   },
 
   componentDidMount() {
@@ -73,53 +68,29 @@ module.exports = React.createClass({
       .then(data => this.setState({...this.state, prezis: data}));
   },
 
+  render() {
+    return (
+      <Main {...
+        {
+          ...this.state,
+          onSearchTextChange: this.handleSearchTextChange,
+          onSortByChange: this.handleSortByChange,
+          onSortAscendingChange: this.handleSortAscendingChange,
+        }
+      } />
+    );
+  },
+
   handleSearchTextChange(searchText) {
-    this.setState({...this.state, searchText});
+    this.setState({ ...this.state, searchText });
   },
 
   handleSortByChange(sortBy) {
-    this.setState({...this.state, sortBy});
+    this.setState({ ...this.state, sortBy });
   },
 
   handleSortAscendingChange(sortAscending) {
-    this.setState({...this.state, sortAscending});
+    this.setState({ ...this.state, sortAscending });
   },
 
-  render() {
-    const {
-      prezis,
-      searchText,
-      sortBy,
-      sortAscending,
-    } = this.state;
-
-    return (
-      <Layout fixedHeader>
-        <Header title="PREZiS">
-          <Textfield
-            value={searchText}
-            onChange={e => this.handleSearchTextChange(e.target.value)}
-            label="Search"
-            expandable
-            expandableIcon="search"
-          />
-        </Header>
-        <Drawer title="Menu">
-          <Navigation>
-            <p>About</p>
-          </Navigation>
-        </Drawer>
-        <Content>
-          <PreziList {...
-            {
-              prezis,
-              sortBy,
-              sortAscending,
-              onSortByChange: this.handleSortByChange,
-              onSortAscendingChange: this.handleSortAscendingChange
-            }} />
-        </Content>
-      </Layout>
-    );
-  },
 });

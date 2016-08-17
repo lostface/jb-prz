@@ -2,7 +2,8 @@
 
 const
   React = require('react'),
-  { Card, CardTitle, CardText } = require('react-mdl');
+  { Card, CardTitle, CardText } = require('react-mdl'),
+  { PreziPropTypes } = require('./prop-types');
 
 module.exports = Prezi;
 
@@ -39,3 +40,5 @@ Prezi.defaultProps = {
   creator: { name: '', profileUrl: '' },
   createdAt: '',
 };
+
+Prezi.propTypes = {...PreziPropTypes};

@@ -2,10 +2,12 @@
 
 const
   React = require('react'),
-  App = require('../containers/app');
+  App = require('./app');
 
-module.exports = function() {
+module.exports = Root;
+
+function Root() {
   return (
     <App />
   );
-};
+}
