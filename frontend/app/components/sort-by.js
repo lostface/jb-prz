@@ -2,7 +2,8 @@
 
 const
   React = require('react'),
-  { Grid, Cell, Switch, RadioGroup, Radio } = require('react-mdl');
+  { Grid, Cell, Switch, RadioGroup, Radio } = require('react-mdl'),
+  { SortByPropType } = require('./prop-types');
 
 module.exports = SortBy;
 
@@ -48,3 +49,17 @@ function SortBy(props) {
     </div>
   );
 }
+
+SortBy.defaultProps = {
+  sortBy: '',
+  sortAscending: true,
+  onSortByChange: () => {},
+  onSortAscendingChange: () => {},
+};
+
+SortBy.propTypes = {
+  sortBy: SortByPropType,
+  sortAscending: React.PropTypes.bool,
+  onSortByChange: React.PropTypes.func,
+  onSortAscendingChange: React.PropTypes.func,
+};

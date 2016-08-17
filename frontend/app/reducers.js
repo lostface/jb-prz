@@ -17,14 +17,14 @@ const defaultState = {
 };
 
 function reducer(state=defaultState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case RECEIVE_PREZIS:
       return { ...state, prezis: action.prezis };
     case SET_SEARCH_TEXT:
       return { ...state, searchText: action.searchText };
-    case SET_SORT_BY: ;
+    case SET_SORT_BY:
       return { ...state, sortBy: action.sortBy };
-    case SET_SORT_ASCENDING: ;
+    case SET_SORT_ASCENDING:
       return { ...state, sortAscending: action.sortAscending };
     default:
       return state;

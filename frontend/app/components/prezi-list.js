@@ -4,7 +4,8 @@ const
   React = require('react'),
   { Grid, Cell } = require('react-mdl'),
   SortBy = require('./sort-by'),
-  Prezi = require('./prezi');
+  Prezi = require('./prezi'),
+  { PreziArrPropType } = require('./prop-types');
 
 module.exports = PreziList;
 
@@ -24,7 +25,7 @@ function PreziList(props) {
           <Prezi {...prezi} />
         </Cell>
       );
-    })
+    });
 
   return (
     <div>
@@ -36,3 +37,18 @@ function PreziList(props) {
     </div>
   );
 }
+
+
+PreziList.defaultProps = {
+  prezis: [],
+  sortBy: '',
+  sortAscending: true,
+};
+
+PreziList.propTypes = {
+  prezis: PreziArrPropType,
+  sortBy: React.PropTypes.string,
+  sortAscending: React.PropTypes.bool,
+  onSortByChange: React.PropTypes.func,
+  onSortAscendingChange: React.PropTypes.func,
+};

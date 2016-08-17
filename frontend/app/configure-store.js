@@ -12,4 +12,4 @@ function configureStore() {
     rootReducer,
     applyMiddleware(thunk)
   );
-};
+}

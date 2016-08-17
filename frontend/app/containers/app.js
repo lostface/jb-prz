@@ -4,10 +4,21 @@ const
   React = require('react'),
   { connect } = require('react-redux'),
   { fetchPrezis, setSearchText, setSortBy, setSortAscending } = require('../actions'),
-  { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
-  PreziList = require('../components/prezi-list');
+  { PreziArrPropType, SortByPropType } = require('../components/prop-types'),
+  Main = require('../components/main');
 
 const App = React.createClass({
+  propTypes: {
+    dispatch: React.PropTypes.func,
+    prezis: PreziArrPropType,
+    searchText: React.PropTypes.string,
+    sortBy: SortByPropType,
+    sortAscending: React.PropTypes.bool,
+    // onSearchTextChange: React.PropTypes.func,
+    // onSortByChange: React.PropTypes.func,
+    // onSortAscendingChange: React.PropTypes.func,
+  },
+
   componentDidMount() {
     const {
       dispatch,
@@ -50,39 +61,9 @@ const App = React.createClass({
   },
 
   render() {
-    const {
-      prezis,
-      searchText,
-      sortBy,
-      sortAscending,
-      onSearchTextChange,
-      onSortByChange,
-      onSortAscendingChange
-    } = this.props;
-
-    return (
-      <Layout fixedHeader>
-        <Header title="PREZiS">
-          <Textfield
-            value={searchText}
-            onChange={e => onSearchTextChange(e.target.value)}
-            label="Search"
-            expandable
-            expandableIcon="search"
-          />
-        </Header>
-        <Drawer title="Menu">
-          <Navigation>
-            <p>About</p>
-          </Navigation>
-        </Drawer>
-        <Content>
-          <PreziList {...{ prezis, sortBy, sortAscending, onSortByChange, onSortAscendingChange }} />
-        </Content>
-      </Layout>
-    );
+    return <Main {...this.props}/>;
   },
-})
+});
 
 module.exports = connect(
   mapStateToProps,
@@ -94,7 +75,7 @@ function mapStateToProps(state) {
   return state;
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   // TODO compose can be used here
   return {
     dispatch: dispatch,

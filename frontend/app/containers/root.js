@@ -8,10 +8,12 @@ const
 
 const store = configureStore();
 
-module.exports = function() {
+module.exports = Root;
+
+function Root() {
   return (
     <Provider store={store}>
       <App />
     </Provider>
   );
-};
+}
