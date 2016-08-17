@@ -58,7 +58,7 @@ module.exports = {
     "computed-property-spacing": ["error", "never"],
     "eol-last": "error",
     "func-call-spacing": ["error", "never"],
-    "indent": ["error", 2],
+    "indent": ["error", 2, { SwitchCase: 1 }],
     "jsx-quotes": ["error", "prefer-double"],
     "keyword-spacing": "error",
     // TODO this is ok from CLI, but not in Sublime (opposite result!)
@@ -73,7 +73,8 @@ module.exports = {
     "semi-spacing": ["error", {"before": false, "after": true}],
     "space-before-blocks": "error",
     "space-in-parens": ["error", "never"],
-    "space-infix-ops": "error",
+    // TODO es6 default params not supported :(
+    "space-infix-ops": "off",
     "space-unary-ops": ["error", { "words": true, "nonwords": false }],
 
     // ES6
