@@ -2,6 +2,7 @@ node_modules/
 !/node_modules/
 
 .gitignore
+.eslintcache
 npm-debug.log
 /Procfile
 /package.json

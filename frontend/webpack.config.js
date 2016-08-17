@@ -1,18 +1,34 @@
+'use strict';
+
 module.exports = {
-  entry: "./app/index.js",
+  entry: './app/index.js',
 
   output: {
     path: './build',
-    filename: "bundle.js"
+    filename: 'bundle.js'
   },
 
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      }
+    ],
+
     loaders: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: 'babel-loader',
+        exclude: /node_modules/
       },
     ]
+  },
+
+  eslint: {
+    cache: true,
+    failOnWarning: false,
+    failOnError: false,
   }
 };
