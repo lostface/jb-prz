@@ -1,3 +1,5 @@
+'use strict';
+
 const
   test = require('tape'),
   PrezisService = require('./prezis.service');
@@ -253,7 +255,7 @@ test('findById callback calling when prezi not exists with the specified id', fu
 
   function cb(err, data) {
     const
-      expected,
+      expected = undefined,
       actual = data;
 
     t.looseEqual(actual, expected, 'findById() should call the callback with undefined if prezi not exists with the specified id');

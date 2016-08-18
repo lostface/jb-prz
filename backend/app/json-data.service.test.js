@@ -1,15 +1,17 @@
-var
+'use strict';
+
+const
   test = require('tape'),
-  proxyquire =  require('proxyquire'),
-  sinon =  require('sinon'),
-  jsonFileStub = {};
+  proxyquire = require('proxyquire'),
+  sinon = require('sinon'),
+  jsonFileStub = {},
   JsonDataService = proxyquire('./json-data.service', { 'jsonfile': jsonFileStub });
 
 const DUMMY_FILE = 'dummy';
 const DUMMY_DATA = 'dummy';
 
 test('init initialization of file property', function(t) {
-  underTest = Object.create(JsonDataService);
+  const underTest = Object.create(JsonDataService);
   underTest.init(DUMMY_FILE);
 
   var
@@ -22,7 +24,7 @@ test('init initialization of file property', function(t) {
 });
 
 test('init initialization of data property', function(t) {
-  underTest = Object.create(JsonDataService);
+  const underTest = Object.create(JsonDataService);
   underTest.init(DUMMY_FILE);
 
   var
@@ -35,7 +37,7 @@ test('init initialization of data property', function(t) {
 });
 
 test('getData callback calling on first call', function(t) {
-  underTest = Object.create(JsonDataService);
+  const underTest = Object.create(JsonDataService);
   underTest.init(DUMMY_FILE);
 
   var readFileStub = jsonFileStub.readFile = sinon.stub();
@@ -57,7 +59,7 @@ test('getData callback calling on first call', function(t) {
 });
 
 test('getData callback calling on second call', function(t) {
-  underTest = Object.create(JsonDataService);
+  const underTest = Object.create(JsonDataService);
   underTest.init(DUMMY_FILE);
   underTest.data = DUMMY_DATA;
 
@@ -79,7 +81,7 @@ test('getData callback calling on second call', function(t) {
 });
 
 test('getData setting of data property on first call', function(t) {
-  underTest = Object.create(JsonDataService);
+  const underTest = Object.create(JsonDataService);
   underTest.init(DUMMY_FILE);
 
   var readFileStub = jsonFileStub.readFile = sinon.stub();
@@ -89,7 +91,7 @@ test('getData setting of data property on first call', function(t) {
 
   delete jsonFileStub.readFile;
 
-  function cb(err, data) {
+  function cb() {
     var
       expected = DUMMY_DATA,
       actual = underTest.data;
@@ -101,7 +103,7 @@ test('getData setting of data property on first call', function(t) {
 });
 
 test('getData json reading on second call', function(t) {
-  underTest = Object.create(JsonDataService);
+  const underTest = Object.create(JsonDataService);
   underTest.init(DUMMY_FILE);
   underTest.data = DUMMY_DATA;
 
@@ -111,7 +113,7 @@ test('getData json reading on second call', function(t) {
 
   delete jsonFileStub.readFile;
 
-  function cb(err, data) {
+  function cb() {
     var
       expected = false,
       actual = readFileSpy.called;
