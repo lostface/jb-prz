@@ -3,7 +3,7 @@
 const
   React = require('react'),
   { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
-  PreziBoxCont = require('../containers/prezi-box-cont'),
+  PreziBox = require('./prezi-box'),
   PureRenderMixin = require('react-addons-pure-render-mixin');
 
 module.exports = React.createClass({
@@ -45,7 +45,7 @@ module.exports = React.createClass({
           </Navigation>
         </Drawer>
         <Content>
-          <PreziBoxCont />
+          <PreziBox />
         </Content>
       </Layout>
     );
