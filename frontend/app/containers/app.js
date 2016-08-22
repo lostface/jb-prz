@@ -5,18 +5,21 @@ const
   { connect } = require('react-redux'),
   { fetchPrezis, setSearchText, setSortBy, setSortAscending } = require('../actions'),
   { PreziArrPropType, SortByPropType } = require('../components/prop-types'),
-  Main = require('../components/main');
+  Main = require('../components/main'),
+  PureRenderMixin = require('react-addons-pure-render-mixin');
 
 const App = React.createClass({
+  mixins: [PureRenderMixin],
+
   propTypes: {
     dispatch: React.PropTypes.func,
     prezis: PreziArrPropType,
     searchText: React.PropTypes.string,
     sortBy: SortByPropType,
     sortAscending: React.PropTypes.bool,
-    // onSearchTextChange: React.PropTypes.func,
-    // onSortByChange: React.PropTypes.func,
-    // onSortAscendingChange: React.PropTypes.func,
+    onSearchTextChange: React.PropTypes.func,
+    onSortByChange: React.PropTypes.func,
+    onSortAscendingChange: React.PropTypes.func,
   },
 
   componentDidMount() {
