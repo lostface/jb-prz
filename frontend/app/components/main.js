@@ -3,45 +3,29 @@
 const
   React = require('react'),
   { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
-  PreziBox = require('./prezi-box'),
-  { PreziArrPropType, SortByPropType } = require('./prop-types'),
+  PreziBoxCont = require('../containers/prezi-box-cont'),
   PureRenderMixin = require('react-addons-pure-render-mixin');
 
 module.exports = React.createClass({
   mixins: [PureRenderMixin],
 
   propTypes: {
-    prezis: PreziArrPropType,
     searchText: React.PropTypes.string,
-    sortBy: SortByPropType,
-    sortAscending: React.PropTypes.bool,
     onSearchTextChange: React.PropTypes.func,
-    onSortByChange: React.PropTypes.func,
-    onSortAscendingChange:  React.PropTypes.func,
   },
 
   getDefaultProps() {
     return {
-      prezis: [],
       searchText: '',
-      sortBy: '',
-      sortAscending: true,
       // TODO noOp func instead
       onSearchTextChange: () => {},
-      onSortByChange: () => {},
-      onSortAscendingChange:  () => {},
     };
   },
 
   render() {
     const {
-      prezis,
       searchText,
-      sortBy,
-      sortAscending,
       onSearchTextChange,
-      onSortByChange,
-      onSortAscendingChange,
     } = this.props;
 
     return (
@@ -61,14 +45,7 @@ module.exports = React.createClass({
           </Navigation>
         </Drawer>
         <Content>
-          <PreziBox {...
-            {
-              prezis,
-              sortBy,
-              sortAscending,
-              onSortByChange,
-              onSortAscendingChange
-            }} />
+          <PreziBoxCont />
         </Content>
       </Layout>
     );

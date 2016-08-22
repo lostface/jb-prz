@@ -3,23 +3,17 @@
 const
   React = require('react'),
   { connect } = require('react-redux'),
-  { fetchPrezis, setSearchText, setSortBy, setSortAscending } = require('../actions'),
-  { PreziArrPropType, SortByPropType } = require('../components/prop-types'),
-  Main = require('../components/main'),
-  PureRenderMixin = require('react-addons-pure-render-mixin');
+  { fetchPrezis, setSearchText } = require('../actions'),
+  { SortByPropType } = require('../components/prop-types'),
+  Main = require('../components/main');
 
 const App = React.createClass({
-  mixins: [PureRenderMixin],
-
   propTypes: {
     dispatch: React.PropTypes.func,
-    prezis: PreziArrPropType,
     searchText: React.PropTypes.string,
     sortBy: SortByPropType,
     sortAscending: React.PropTypes.bool,
     onSearchTextChange: React.PropTypes.func,
-    onSortByChange: React.PropTypes.func,
-    onSortAscendingChange: React.PropTypes.func,
   },
 
   componentDidMount() {
@@ -64,7 +58,8 @@ const App = React.createClass({
   },
 
   render() {
-    return <Main {...this.props}/>;
+    const { searchText, onSearchTextChange } = this.props;
+    return <Main {...{ searchText, onSearchTextChange }}/>;
   },
 });
 
@@ -75,7 +70,9 @@ module.exports = connect(
 
 // TODO identity func can be used instead as well
 function mapStateToProps(state) {
-  return state;
+  // TODO _.pick like func
+  const { searchText, sortBy, sortAscending } = state;
+  return { searchText, sortBy, sortAscending };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -83,7 +80,5 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch: dispatch,
     onSearchTextChange: searchText => dispatch(setSearchText(searchText)),
-    onSortByChange: sortBy => dispatch(setSortBy(sortBy)),
-    onSortAscendingChange:  sortAscending => dispatch(setSortAscending(sortAscending)),
   };
 }
