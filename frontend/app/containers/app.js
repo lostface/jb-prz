@@ -3,9 +3,13 @@
 const
   React = require('react'),
   fetch = require('isomorphic-fetch'),
-  Main = require('../components/main');
+  Main = require('../components/main'),
+  PureRenderMixin = require('react-addons-pure-render-mixin'),
+  notDeepStrictEqual = require('not_deep_strict_equal');
 
 module.exports = React.createClass({
+  mixins: [PureRenderMixin],
+
   getInitialState() {
     return {
       prezis: [],
@@ -65,7 +69,12 @@ module.exports = React.createClass({
         { mode: 'cors' }
       )
       .then(response => response.json())
-      .then(data => this.setState({...this.state, prezis: data}));
+      // TODO only when changed
+      .then(prezis => {
+        if (notDeepStrictEqual(prezis, this.state.prezis)) {
+          this.setState({...this.state, prezis});
+        }
+      });
   },
 
   render() {
@@ -81,16 +90,23 @@ module.exports = React.createClass({
     );
   },
 
+  // TODO these can be generalized
   handleSearchTextChange(searchText) {
-    this.setState({ ...this.state, searchText });
+    if (searchText !== this.state.searchText) {
+      this.setState({ ...this.state, searchText });
+    }
   },
 
   handleSortByChange(sortBy) {
-    this.setState({ ...this.state, sortBy });
+    if (sortBy !== this.state.sortBy) {
+      this.setState({ ...this.state, sortBy });
+    }
   },
 
   handleSortAscendingChange(sortAscending) {
-    this.setState({ ...this.state, sortAscending });
+    if (sortAscending !== this.state.sortAscending) {
+      this.setState({ ...this.state, sortAscending });
+    }
   },
 
 });
