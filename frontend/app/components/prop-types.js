@@ -1,28 +1,30 @@
 'use strict';
 
-const React = require('react');
+const
+  React = require('react'),
+  ImmutablePropTypes = require('react-immutable-proptypes');
 
 const SortByPropType = React.PropTypes.oneOf(['', 'title', 'createdAt']);
 
 const CreatorPropTypes = {
-  name: React.PropTypes.string,
-  profileUrl: React.PropTypes.string // TODO url, uri to be more specific
+  name: React.PropTypes.string.isRequired,
+  profileUrl: React.PropTypes.string.isRequired // TODO url, uri to be more specific
 };
 
 const PreziPropTypes = {
-  id: React.PropTypes.string,
-  title: React.PropTypes.string,
-  thumbnail: React.PropTypes.string, // TODO url, uri to be more specific
-  creator: React.PropTypes.shape(CreatorPropTypes),
-  createdAt: React.PropTypes.string,
+  id: React.PropTypes.string.isRequired,
+  title: React.PropTypes.string.isRequired,
+  thumbnail: React.PropTypes.string.isRequired, // TODO url, uri to be more specific
+  creator: ImmutablePropTypes.contains(CreatorPropTypes).isRequired,
+  createdAt: React.PropTypes.string.isRequired,
 };
 
-const PreziArrPropType = React.PropTypes.arrayOf(
-  React.PropTypes.shape(PreziPropTypes)
+const PrezisPropType = ImmutablePropTypes.listOf(
+  ImmutablePropTypes.contains(PreziPropTypes)
 );
 
 module.exports = {
-  PreziArrPropType,
+  PrezisPropType,
   PreziPropTypes,
   SortByPropType,
 };

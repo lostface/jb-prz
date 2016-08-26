@@ -2,21 +2,22 @@
 
 const
   React = require('react'),
+  { List } = require('immutable'),
   { Grid, Cell } = require('react-mdl'),
   Prezi = require('./prezi'),
-  { PreziArrPropType } = require('./prop-types'),
-  PureRenderMixin = require('react-addons-pure-render-mixin');
+  { PrezisPropType } = require('./prop-types'),
+  ImmutableRenderMixin = require('react-immutable-render-mixin');
 
 module.exports = React.createClass({
-  mixins: [PureRenderMixin],
+  mixins: [ImmutableRenderMixin],
 
   propTypes: {
-    prezis: PreziArrPropType,
+    prezis: PrezisPropType,
   },
 
   getDefaultProps() {
     return {
-      prezis: [],
+      prezis: List(),
     };
   },
 
@@ -30,6 +31,7 @@ module.exports = React.createClass({
     );
 
     function createPreziNode(prezi) {
+      prezi = prezi.toObject();
       return (
         <Cell col={4} key={prezi.id}>
           <Prezi {...prezi} />

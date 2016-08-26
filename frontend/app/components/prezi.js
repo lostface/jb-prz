@@ -2,13 +2,13 @@
 
 const
   React = require('react'),
-  DeepPureRenderMixin = require('../mixins/deep-pure-render-mixin'),
   { Card, CardTitle, CardText } = require('react-mdl'),
-  { PreziPropTypes } = require('./prop-types');
+  { PreziPropTypes } = require('./prop-types'),
+  ImmutableRenderMixin = require('react-immutable-render-mixin');
 
 module.exports = React.createClass({
-  mixins: [DeepPureRenderMixin],
-  propTypes: {...PreziPropTypes},
+  mixins: [ImmutableRenderMixin],
+  propTypes: {...PreziPropTypes },
 
   getDefaultProps() {
     return {
@@ -40,7 +40,7 @@ module.exports = React.createClass({
           {title}
         </CardTitle>
         <CardText>
-          {createdAt} by {creator.name}
+          {createdAt} by {creator.get('name')}
         </CardText>
       </Card>
     );

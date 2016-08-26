@@ -2,16 +2,17 @@
 
 const
   React = require('react'),
+  { List } = require('immutable'),
   { Layout, Header, Textfield, Drawer, Navigation, Content } = require('react-mdl'),
   PreziBox = require('./prezi-box'),
-  { PreziArrPropType, SortByPropType } = require('./prop-types'),
-  PureRenderMixin = require('react-addons-pure-render-mixin');
+  { PrezisPropType, SortByPropType } = require('./prop-types'),
+  ImmutableRenderMixin = require('react-immutable-render-mixin');
 
 module.exports = React.createClass({
-  mixins: [PureRenderMixin],
+  mixins: [ImmutableRenderMixin],
 
   propTypes: {
-    prezis: PreziArrPropType,
+    prezis: PrezisPropType,
     searchText: React.PropTypes.string,
     sortBy: SortByPropType,
     sortAscending: React.PropTypes.bool,
@@ -22,7 +23,7 @@ module.exports = React.createClass({
 
   getDefaultProps() {
     return {
-      prezis: [],
+      prezis: List(),
       searchText: '',
       sortBy: '',
       sortAscending: true,
@@ -68,7 +69,8 @@ module.exports = React.createClass({
               sortAscending,
               onSortByChange,
               onSortAscendingChange
-            }} />
+            }
+          } />
         </Content>
       </Layout>
     );

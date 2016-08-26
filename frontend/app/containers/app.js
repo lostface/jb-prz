@@ -2,17 +2,21 @@
 
 const
   React = require('react'),
+  Immutable = require('immutable'),
+  { List } = Immutable,
   fetch = require('isomorphic-fetch'),
   Main = require('../components/main'),
-  PureRenderMixin = require('react-addons-pure-render-mixin'),
-  notDeepStrictEqual = require('not_deep_strict_equal');
+  ImmutableRenderMixin = require('react-immutable-render-mixin');
 
 module.exports = React.createClass({
-  mixins: [PureRenderMixin],
+  mixins: [ImmutableRenderMixin],
 
   getInitialState() {
+    // light immutability which still needs discipline, but increase performance a lot
+    // . creating a wrapper property which includes an immutable type is a bit
+    // . overhead and the wrapper property can be changed freely
     return {
-      prezis: [],
+      prezis: List(),
       searchText: '',
       sortBy: '',
       sortAscending: true,
@@ -69,10 +73,10 @@ module.exports = React.createClass({
         { mode: 'cors' }
       )
       .then(response => response.json())
-      // TODO only when changed
+      .then(Immutable.fromJS)
       .then(prezis => {
-        if (notDeepStrictEqual(prezis, this.state.prezis)) {
-          this.setState({...this.state, prezis});
+        if (!Immutable.is(prezis, this.state.prezis)) {
+          this.setState({ prezis });
         }
       });
   },
