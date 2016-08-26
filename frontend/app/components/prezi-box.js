@@ -2,16 +2,17 @@
 
 const
   React = require('react'),
+  { List } = require('immutable'),
   SortBy = require('./sort-by'),
   PreziList = require('./prezi-list'),
-  { PreziArrPropType } = require('./prop-types'),
-  PureRenderMixin = require('react-addons-pure-render-mixin');
+  { PrezisPropType } = require('./prop-types'),
+  ImmutableRenderMixin = require('react-immutable-render-mixin');
 
 module.exports = React.createClass({
-  mixins: [PureRenderMixin],
+  mixins: [ImmutableRenderMixin],
 
   propTypes: {
-    prezis: PreziArrPropType,
+    prezis: PrezisPropType,
     sortBy: React.PropTypes.string,
     sortAscending: React.PropTypes.bool,
     onSortByChange: React.PropTypes.func,
@@ -20,7 +21,7 @@ module.exports = React.createClass({
 
   getDefaultProps() {
     return {
-      prezis: [],
+      prezis: List(),
       sortBy: '',
       sortAscending: true,
     };

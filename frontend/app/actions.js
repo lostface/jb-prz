@@ -48,7 +48,7 @@ function fetchPrezis(options) {
         { mode: 'cors' }
       )
       .then(response => response.json())
-      .then(data => dispatch(receivePrezis(data)));
+      .then(prezis => dispatch(receivePrezis(prezis)));
   };
 }
 

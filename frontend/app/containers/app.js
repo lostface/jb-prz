@@ -4,16 +4,16 @@ const
   React = require('react'),
   { connect } = require('react-redux'),
   { fetchPrezis, setSearchText, setSortBy, setSortAscending } = require('../actions'),
-  { PreziArrPropType, SortByPropType } = require('../components/prop-types'),
+  { PrezisPropType, SortByPropType } = require('../components/prop-types'),
   Main = require('../components/main'),
-  PureRenderMixin = require('react-addons-pure-render-mixin');
+  ImmutableRenderMixin = require('react-immutable-render-mixin');
 
 const App = React.createClass({
-  mixins: [PureRenderMixin],
+  mixins: [ImmutableRenderMixin],
 
   propTypes: {
     dispatch: React.PropTypes.func,
-    prezis: PreziArrPropType,
+    prezis: PrezisPropType,
     searchText: React.PropTypes.string,
     sortBy: SortByPropType,
     sortAscending: React.PropTypes.bool,
@@ -75,7 +75,7 @@ module.exports = connect(
 
 // TODO identity func can be used instead as well
 function mapStateToProps(state) {
-  return state;
+  return { ...state.toObject() };
 }
 
 function mapDispatchToProps(dispatch) {

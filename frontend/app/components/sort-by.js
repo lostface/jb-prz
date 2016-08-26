@@ -4,10 +4,10 @@ const
   React = require('react'),
   { Grid, Cell, Switch, RadioGroup, Radio } = require('react-mdl'),
   { SortByPropType } = require('./prop-types'),
-  PureRenderMixin = require('react-addons-pure-render-mixin');
+  ImmutableRenderMixin = require('react-immutable-render-mixin');
 
 module.exports = React.createClass({
-  mixins: [PureRenderMixin],
+  mixins: [ImmutableRenderMixin],
 
   propTypes: {
     sortBy: SortByPropType,

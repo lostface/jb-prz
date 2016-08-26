@@ -1,7 +1,8 @@
 'use strict';
 
 const
-  notDeepStrictEqual = require('not_deep_strict_equal'),
+  Immutable = require('immutable'),
+  { List } = Immutable,
   {
     RECEIVE_PREZIS,
     SET_SEARCH_TEXT,
@@ -11,44 +12,35 @@ const
 
 module.exports = reducer;
 
-const defaultState = {
-  prezis: [],
+const defaultState = Immutable.Map({
+  prezis: List(),
   searchText: '',
   sortBy: '',
   sortAscending: true,
-};
+});
 
 function reducer(state=defaultState, action) {
   // TODO equality check can be generalized
+  // TODO validation ? what can be set? TypeScript? :D
   switch (action.type) {
     case RECEIVE_PREZIS: {
       // TODO normalize
       // TODO or check and use existing entities (creator) ...
-      const newValue = action.prezis;
-      return notDeepStrictEqual(newValue, state.prezis)
-        ? { ...state, prezis: newValue }
-        : state;
+
+      // TODO call fromJS here or at call site before action is dispatched?
+      return state.set('prezis', Immutable.fromJS(action.prezis));
     }
 
     case SET_SEARCH_TEXT: {
-      const newValue = action.searchText;
-      return newValue !== state.searchText
-        ? { ...state, searchText: newValue }
-        : state;
+      return state.set('searchText', action.searchText);
     }
 
     case SET_SORT_BY: {
-      const newValue = action.sortBy;
-      return newValue !== state.sortBy
-        ? { ...state, sortBy: newValue }
-        : state;
+      return state.set('sortBy', action.sortBy);
     }
 
     case SET_SORT_ASCENDING: {
-      const newValue = action.sortAscending;
-      return newValue !== state.sortAscending
-        ? { ...state, sortAscending: newValue }
-        : state;
+      return state.set('sortAscending', action.sortAscending);
     }
 
     default:
